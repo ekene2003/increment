@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>dynamic input with js</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Courier New', Courier, monospace;
+                border: 0;
+                outline: 0;
+
+            }
+
+            section {
+                padding: 5rem 2rem;
+                background: aliceblue;
+            }
+
+            form {
+                max-width: 40rem;
+                padding: 3rem;
+                border-radius: 5px;
+                margin: 6rem auto;
+                text-align: center;
+                box-shadow: 2px 2px 18px 0 #0002;
+                background-color: #fff;
+            }
+
+            input {
+                padding: 0.5rem 1rem;
+                margin: 0.5rem 1rem;
+                background: #0002;
+                width: 100%;
+            }
+
+            button {
+                padding: 0.8rem 1rem;
+                border-radius: 25px;
+                cursor: pointer;
+                margin: 0.5rem;
+                background: #fabf00;
+                color: white;
+            }
+
+            #incrementBtn {
+                background: #09db8b;
+            }
+
+            #decrementBtn {
+                background: #397698;
+
+            }
+        </style>
+    </head>
+
+    <body>
+        <section id="form-section">
+            <form action="" id="dynamicform">
+                <div id="timeResult"></div>
+                <label for="dynamic-value">Enter a number to increase or decrease</label>
+                <input type="text" id="dynamic-value" placeholder="enter the number">
+                <button data-type="decrement" id="decrementBtn">Decrement</button>
+                <button data-type="increment" id="incrementBtn">increment</button>
+                <button data-type="reset" id="resetBtn">Reset</button>
+            </form>
+        </section>
+        <script>
+            let decrementBtn = document.querySelector('#decrementBtn');
+            let incrementBtn = document.querySelector('#incrementBtn');
+            let resetBtn = document.querySelector('#resetBtn');
+            let field = document.querySelector('#dynamic-value');
+            let timeResult = document.querySelector('#timeResult');
+            let timeMgr;
+            decrementBtn.onclick = function (e) {
+                e.preventDefault();
+                clearInterval(timeMgr);
+                timeResult.innerHTML = "";
+                let oldValue = document.querySelector('#dynamic-value').value;
+                if (isNaN(oldValue) || oldValue == "") {
+                    timeResult.innerHTML =
+                        "<div style = 'color: white; padding:1rem; background: tomato; text-align : center'>invalid input!</div>";
+                    return;
+                }
+                timeMgr = setInterval(function () {
+                    oldValue--;
+                    field.value = oldValue
+                }, 1000)
+            }
+            incrementBtn.onclick = function (e) {
+                e.preventDefault();
+                clearInterval(timeMgr);
+                timeResult.innerHTML = "";
+
+                let oldValue = document.querySelector('#dynamic-value').value;
+                if (isNaN(oldValue) || oldValue == "") {
+                    timeResult.innerHTML =
+                        "<div style = 'color:white; padding:1rem; background: tomato; text-align: center'>invalid input!</div>";
+                    return;
+                }
+                timeMgr = setInterval(function () {
+                    oldValue++;
+                    field.value = oldValue
+                }, 1000)
+            }
+            resetBtn.onclick = function (e) {
+                e.preventDefault();
+                clearInterval(timeMgr)
+                timeResult.innerHTML = "";
+                field.value = 0
+
+            }
+        </script>
+    </body>
+
+</html>
